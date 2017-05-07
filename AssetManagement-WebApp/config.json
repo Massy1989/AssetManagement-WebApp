@@ -1,0 +1,8 @@
+﻿{
+  "MailSettings": {
+    "ToAddress": "ryan.masilionis@gmail.com"
+  },
+  "ConnectionStrings": {
+    "AssetContextConnection": "Server=Server-2016;Database=AssetManagementDB;Trusted_Connection=true;MultipleActiveResultSets=true;"
+  }
+}
