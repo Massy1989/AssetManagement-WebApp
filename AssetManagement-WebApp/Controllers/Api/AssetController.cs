@@ -15,6 +15,7 @@ namespace AssetManagement_WebApp.Controllers
     {
         private ILogger<AssetController> _logger;
         private IAssetRepository _repository;
+
         public AssetController(IAssetRepository repository, ILogger<AssetController> logger)
         {
             _repository = repository;
@@ -34,6 +35,25 @@ namespace AssetManagement_WebApp.Controllers
                 _logger.LogError($"Failed to get All Assets: {ex}");
                 return BadRequest("Error occurred");
             }
+        }
+
+        [HttpPost("")]
+        public async Task<IActionResult> Post([FromBody]AssetViewModel asset)
+        {
+            if(ModelState.IsValid)
+            {
+                var newAsset = Mapper.Map<Asset>(asset);
+
+                //newAsset.UserName = User.Identity.Name;
+
+                _repository.AddAsset(newAsset);
+
+                if (await _repository.SaveChangesAsync())
+                {
+                    return Created($"api/assets/{asset.Name}", Mapper.Map<AssetViewModel>(asset));
+                }
+            }
+            return BadRequest("Failed to save the asset.");
         }
     }
 }
