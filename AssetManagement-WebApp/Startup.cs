@@ -8,6 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using AssetManagementWebApp.Models;
+using Newtonsoft.Json.Serialization;
+using AutoMapper;
+using AssetManagementWebApp.ViewModels;
 
 namespace AssetManagement_WebApp
 {
@@ -47,9 +50,13 @@ namespace AssetManagement_WebApp
 
             services.AddDbContext<AssetContext>();
             services.AddScoped<IAssetRepository, AssetRepository>();
-
+            services.AddLogging();
             // Add framework services.
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(config =>
+                {
+                    config.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,13 +65,20 @@ namespace AssetManagement_WebApp
             //loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             //loggerFactory.AddDebug();
 
+            Mapper.Initialize(config =>
+            {
+                config.CreateMap<AssetViewModel, Asset>().ReverseMap();
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                loggerFactory.AddDebug(LogLevel.Information);
                 app.UseBrowserLink();
             }
             else
             {
+                loggerFactory.AddDebug(LogLevel.Error);
                 app.UseExceptionHandler("/Home/Error");
             }
 
