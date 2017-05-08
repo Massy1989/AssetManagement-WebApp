@@ -1,7 +1,36 @@
-﻿@{
+﻿@model IEnumerable<AssetManagementWebApp.Models.Asset>
+@{
     ViewData["Title"] = "Applications";
 }
-<div class="row">
+@section Scripts {
+    <script src="~/lib/angular/angular.min.js"></script>
+    <script src="~/js/app-assets.js"></script>
+    <script src="~/js/assetsController.js"></script>
+}
+<div class="row" ng-app="app-assets">
+    <div ng-controller="assetsController as vm" class="col-md-6 col-md-offset-3">
+        <table class="table table-responsive table-striped">
+            <tr ng-repeat="asset in vm.assets">
+                <td>{{ asset.name }}</td>
+                <td>{{ asset.created | date:'MM-dd-yyyy'}}</td>
+                <td><a href="#" class="btn btn-sm btn-primary">Edit</a></td>
+            </tr>
+        </table>
+
+        <form novalidate name="newAssetForm" ng-submit="vm.addAsset()">
+            <div class="form-group">
+                <label for="name">Asset Name</label>
+                <input class="form-control" type="text" id="name" name="name" ng-model="vm.newAsset.name" required ng-minlength="5" />
+                <span ng-show="newAssetForm.name.$error.required" class="text-warning">Name is required.</span>
+                <span ng-show="newAssetForm.name.$error.minlength" class="text-warning">Name must be at least five characters.</span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add" 
+                       class="btn btn-success btn-sm"
+                       ng-disabled="newAssetForm.$invalid" />
+            </div>
+        </form>
+    </div>
     <div class="col-md-12">
         <h2>@ViewData["Title"]</h2>
         @*<h3>@ViewData["Message"]</h3>*@
