@@ -8,8 +8,8 @@ using AssetManagementWebApp.Models;
 namespace AssetManagementWebApp.Migrations
 {
     [DbContext(typeof(AssetContext))]
-    [Migration("20170507034826_InitialDatabase")]
-    partial class InitialDatabase
+    [Migration("20170508041931_InitialInstall")]
+    partial class InitialInstall
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

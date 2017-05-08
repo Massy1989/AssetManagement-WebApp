@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace AssetManagementWebApp.Migrations
 {
-    public partial class InitialDatabase : Migration
+    public partial class InitialInstall : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
