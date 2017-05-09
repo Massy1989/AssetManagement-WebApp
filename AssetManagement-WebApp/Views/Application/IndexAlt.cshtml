@@ -1,0 +1,44 @@
+﻿@model IEnumerable<AssetManagementWebApp.Models.Asset>
+@{
+    ViewData["Title"] = "Applications";
+}
+@section Scripts {
+    <script src="~/lib/angular/angular.min.js"></script>
+    <script src="~/js/app-assets.js"></script>
+    <script src="~/js/assetsController.js"></script>
+}
+<div class="row" ng-app="app-assets">
+    <div ng-controller="assetsController as vm" class="col-md-12 col-md-offset-0">
+        <div ng-show="vm.isBusy" class="text-center"><i class="fa fa-spinner fa-spin">Loading...</i></div>
+        <table class="table table-responsive table-striped">
+            <tr ng-repeat="asset in vm.assets">
+                <td>{{ asset.name }}</td>
+                <td>{{ asset.description }}</td>
+                <td>{{ asset.assetType.description }}</td>
+                <td>{{ asset.created | date:'MM-dd-yyyy'}}</td>
+                <td><a href="#" class="btn btn-sm btn-primary">Edit</a></td>
+            </tr>
+        </table>
+
+        <form novalidate name="newAssetForm" ng-submit="vm.addAsset()">
+            <div class="text-danger" ng-show="vm.errorMessage">Error: {{ vm.errorMessage }}</div>
+            <div class="form-group">
+                <label for="name">Asset Name</label>
+                <input class="form-control" type="text" id="name" name="name" ng-model="vm.newAsset.name" required ng-minlength="5" />
+                <span ng-show="newAssetForm.name.$error.required" class="text-warning">Name is required.</span>
+                <span ng-show="newAssetForm.name.$error.minlength" class="text-warning">Name must be at least five characters.</span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add" 
+                       class="btn btn-success btn-sm"
+                       ng-disabled="newAssetForm.$invalid" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-12">
+        <h2>@ViewData["Title"]</h2>
+        @*<h3>@ViewData["Message"]</h3>*@
+        <p>Use this area to provide additional information.</p>
+        <a asp-controller="Application" asp-action="Index" class="btn btn-lg btn-success">View My Applications</a>
+    </div>
+</div>
