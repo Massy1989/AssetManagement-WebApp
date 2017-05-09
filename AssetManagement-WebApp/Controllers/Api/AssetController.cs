@@ -22,12 +22,35 @@ namespace AssetManagement_WebApp.Controllers
             _logger = logger;
         }
         
-        [HttpGet("")]
-        public IActionResult Get()
+        [HttpGet("quantity")]
+        public IActionResult GetCounts()
         {
             try
             {
-                var assets = _repository.GetAllAssets();
+                var assets = _repository.GetAllAssetCounts();
+                return Ok(Mapper.Map<IEnumerable<AssetCountViewModel>>(assets));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to get All Assets: {ex}");
+                return BadRequest("Error occurred");
+            }
+        }
+
+        [HttpGet("")]
+        public IActionResult Get([FromQuery]string type = null)
+        {
+            try
+            {
+                IEnumerable<Asset> assets;
+                if (type != null)
+                {
+                    assets = _repository.GetAllAssets().Where(t => t.AssetType.Description.ToUpper() == type.ToUpper());
+                }
+                else
+                {
+                    assets = _repository.GetAllAssets();
+                }
                 return Ok(Mapper.Map<IEnumerable<AssetViewModel>>(assets));
             }
             catch (Exception ex)

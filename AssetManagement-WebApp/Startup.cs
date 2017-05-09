@@ -68,6 +68,7 @@ namespace AssetManagement_WebApp
             Mapper.Initialize(config =>
             {
                 config.CreateMap<AssetViewModel, Asset>().ReverseMap();
+                config.CreateMap<AssetCountViewModel, AssetCount>().ReverseMap();
             });
 
             if (env.IsDevelopment())

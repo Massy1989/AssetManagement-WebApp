@@ -7,6 +7,8 @@ namespace AssetManagementWebApp.Models
     {
         IEnumerable<Asset> GetAllAssets();
 
+        IEnumerable<AssetCount> GetAllAssetCounts();
+
         Asset GetAssetByName(string assetName, string username);
 
         void AddAsset(Asset asset);

@@ -2,5 +2,5 @@
 
 (function () {
     //Creating the modules
-    angular.module("app-assets", []);
+    angular.module("app-applications", []);
 })();

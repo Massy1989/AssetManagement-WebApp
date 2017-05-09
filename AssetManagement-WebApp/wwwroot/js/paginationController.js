@@ -1,12 +1,12 @@
-﻿// assetsController.js
+﻿// paginationController.js
 (function () {
 
     "use strict";
 
     // Getting the existing module
-    angular.module("app-pagination")
+    angular.module("app")
         .controller("dataController", dataController);
-    angular.module("app-pagination")
+    angular.module("app")
         .controller("paginationController", paginationController);
 
     function dataController($scope, $http) {

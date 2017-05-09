@@ -18,14 +18,19 @@
     <Content Remove="Views\Home\Servers.cshtml" />
     <Content Remove="Views\Home\Workstations.cshtml" />
     <Content Remove="Views\Shared\Layout.cshtml" />
+    <Content Remove="wwwroot/js\app-assets.js" />
+    <Content Remove="wwwroot/js\app-graphing.js" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="wwwroot\css\paginationStyle.css" />
     <Content Include="wwwroot\js\app-assets.js" />
-    <Content Include="wwwroot\js\app-pagination.js" />
+    <Content Include="wwwroot\js\app-graphing.js" />
+    <Content Include="wwwroot\js\app.js" />
+    <Content Include="wwwroot\js\applicationsController.js" />
     <Content Include="wwwroot\js\assetsController.js" />
     <Content Include="wwwroot\js\dirPagination.js" />
+    <Content Include="wwwroot\js\graphingController.js" />
     <Content Include="wwwroot\js\paginationController.js" />
     <Content Include="wwwroot\tpl\dirPagination.tpl.html" />
   </ItemGroup>

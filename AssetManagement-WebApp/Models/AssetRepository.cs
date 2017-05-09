@@ -18,7 +18,54 @@ namespace AssetManagementWebApp.Models
             _context = context;
             _logger = logger;
         }
+        public IEnumerable<AssetCount> GetAllAssetCounts()
+        {
+            var list = new List<AssetCount>();
+            var assetList = _context.Assets.Include(t => t.AssetType).ToList();
+            AssetCount assetCount;
 
+            //Applications
+            assetCount = new AssetCount()
+            {
+                AssetType = new AssetType(AssetTypeEnum.Application)
+            };
+            assetCount.Quantity = assetList.Where(t => t.AssetType.Id == assetCount.AssetType.Id).ToList().Count;
+            list.Add(assetCount);
+
+            //Components
+            assetCount = new AssetCount()
+            {
+                AssetType = new AssetType(AssetTypeEnum.Component)
+            };
+            assetCount.Quantity = assetList.Where(t => t.AssetType.Id == assetCount.AssetType.Id).ToList().Count;
+            list.Add(assetCount);
+
+            //Databases
+            assetCount = new AssetCount()
+            {
+                AssetType = new AssetType(AssetTypeEnum.Database)
+            };
+            assetCount.Quantity = assetList.Where(t => t.AssetType.Id == assetCount.AssetType.Id).ToList().Count;
+            list.Add(assetCount);
+
+            //Servers
+            assetCount = new AssetCount()
+            {
+                AssetType = new AssetType(AssetTypeEnum.Server)
+            };
+            assetCount.Quantity = assetList.Where(t => t.AssetType.Id == assetCount.AssetType.Id).ToList().Count;
+            list.Add(assetCount);
+
+            //Workstations
+            assetCount = new AssetCount()
+            {
+                AssetType = new AssetType(AssetTypeEnum.Workstation)
+            };
+            assetCount.Quantity = assetList.Where(t => t.AssetType.Id == assetCount.AssetType.Id).ToList().Count;
+            list.Add(assetCount);
+
+            return list;
+        }
 
         public IEnumerable<Asset> GetAllAssets()
         {

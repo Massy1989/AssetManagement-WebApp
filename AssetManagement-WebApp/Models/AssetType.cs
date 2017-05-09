@@ -15,6 +15,16 @@ namespace AssetManagementWebApp.Models
     }
     public class AssetType
     {
+        public AssetType()
+        {
+
+        }
+
+        public AssetType(AssetTypeEnum assetType)
+        {
+            Id = assetType;
+        }
+
         private AssetTypeEnum _id;
         public AssetTypeEnum Id
         {

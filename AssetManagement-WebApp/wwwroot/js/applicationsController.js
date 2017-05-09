@@ -4,7 +4,7 @@
     "use strict";
 
     // Getting the existing module
-    angular.module("app-assets")
+    angular.module("app-applications")
         .controller("assetsController", assetsController);
 
     function assetsController($http) {
