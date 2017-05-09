@@ -4,19 +4,16 @@
     "use strict";
 
     // Getting the existing module
-    angular.module("app-assets")
-        .controller("assetsController", assetsController);
+    angular.module("app-pagination")
+        .controller("dataController", dataController);
+    angular.module("app-pagination")
+        .controller("paginationController", paginationController);
 
-    function assetsController($http) {
-        var vm = this;
+    function dataController($scope, $http) {
+        var vm = $scope;
 
-        //vm.assets = [{
-        //    name: "AssetName",
-        //    created: new Date()
-        //}, {
-        //    name: "Asset2Name",
-        //    created: new Date()
-        //}];
+        vm.currentPage = 1;
+        vm.pageSize = 10;
 
         vm.assets = [];
 
@@ -38,8 +35,7 @@
             });
 
         vm.addAsset = function () {
-            //vm.assets.push({ name: vm.newAsset.name, created: new Date() });
-            //vm.newAsset = {};
+            //vm.assets.push({ name: vm.newAsset.name, created: new Date() });a
 
             vm.isBusy = true;
             vm.errorMessage = "";
@@ -47,7 +43,8 @@
             $http.post("/api/assets", vm.newAsset)
                 .then(function (response) {
                     // success
-                    vm.assets.push(response.data)
+                    //vm.assets.push(response.data)
+                    vm.assets.push("This is a test");
                     vm.newAsset = {};
                 }, function () {
                     // failure
@@ -56,6 +53,17 @@
                 .finally(function () {
                     vm.isBusy = false;
                 });
+        };
+
+        vm.pageChangeHandler = function (num) {
+            console.log('assets page changed to ' + num);
+        };
+    }
+
+    function paginationController($scope) {
+        var vm = this;
+        vm.pageChangeHandler = function (num) {
+            console.log('going to page ' + num);
         };
     }
 })();

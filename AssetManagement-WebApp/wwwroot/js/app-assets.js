@@ -1,6 +1,6 @@
 ﻿// app-assets.js
 
 (function () {
-    //Creating the module
+    //Creating the modules
     angular.module("app-assets", []);
 })();

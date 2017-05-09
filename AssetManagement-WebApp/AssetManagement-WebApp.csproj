@@ -21,9 +21,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\css\paginationStyle.css" />
     <Content Include="wwwroot\js\app-assets.js" />
-    <Content Include="wwwroot\js\assets.js" />
+    <Content Include="wwwroot\js\app-pagination.js" />
     <Content Include="wwwroot\js\assetsController.js" />
+    <Content Include="wwwroot\js\dirPagination.js" />
+    <Content Include="wwwroot\js\paginationController.js" />
+    <Content Include="wwwroot\tpl\dirPagination.tpl.html" />
   </ItemGroup>
 
   <ItemGroup>
