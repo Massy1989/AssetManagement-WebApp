@@ -35,3 +35,16 @@ textarea {
         display: none;
     }
 }
+
+/* START OF BOOTSTRAP MODS */
+.no-gutter > [class*='col-'] {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.pull-bottom {
+    display: inline-block;
+    vertical-align: bottom;
+    float: none;
+}
+/* END OF BOOTSTRAP MODS */
