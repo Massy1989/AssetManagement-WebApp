@@ -18,40 +18,57 @@
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" asp-append-version="true" />
     </environment>
     @Html.Raw(JavaScriptSnippet.FullScript)
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <header>
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <strong><a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">IT Asset Management</a></strong>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Application" asp-action="Index">Applications</a></li>
-                    <li><a asp-area="" asp-controller="Component" asp-action="Index">Components</a></li>
-                    <li><a asp-area="" asp-controller="Database" asp-action="Index">Databases</a></li>
-                    <li><a asp-area="" asp-controller="Server" asp-action="Index">Servers</a></li>
-                    <li><a asp-area="" asp-controller="Workstation" asp-action="Index">Workstations</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Hello, Ryan! <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a asp-area="" asp-controller="Account" asp-action="EditProfile">Manage Profile</a></li>
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        @*<ul class="nav navbar-nav hidden-sm">*@
+                            <span class="@(ViewContext.ViewBag.CurrentPage == "Home" ? "active" : "")" style="font-weight: bold;"><a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">IT Asset Management</a></span>
+                        @*</ul>*@
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="@(ViewContext.ViewBag.CurrentPage == "Application" ? "active" : "")">
+                                <a asp-area="" asp-controller="Application" asp-action="Index">Applications</a>
+                            </li>
+                            <li class="@(ViewContext.ViewBag.CurrentPage == "Component" ? "active" : "")">
+                                <a asp-area="" asp-controller="Component" asp-action="Index">Components</a>
+                            </li>
+                            <li class="@(ViewContext.ViewBag.CurrentPage == "Database" ? "active" : "")">
+                                <a asp-area="" asp-controller="Database" asp-action="Index">Databases</a>
+                            </li>
+                            <li class="@(ViewContext.ViewBag.CurrentPage == "Server" ? "active" : "")">
+                                <a asp-area="" asp-controller="Server" asp-action="Index">Servers</a>
+                            </li>
+                            <li class="@(ViewContext.ViewBag.CurrentPage == "Workstation" ? "active" : "")">
+                                <a asp-area="" asp-controller="Workstation" asp-action="Index">Workstations</a>
+                            </li>
                         </ul>
-                    </li>
-                    
-                </ul>
-            </div>
+                        <ul class="nav navbar-nav navbar-right hidden-sm hidden-xs">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Hello, Ryan! <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a asp-area="" asp-controller="Account" asp-action="EditProfile">Manage Profile</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
         </div>
-    </nav>
+    </header>
     <div class="container body-content">
         @RenderBody()
         <hr />
