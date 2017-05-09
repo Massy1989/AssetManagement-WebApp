@@ -22,7 +22,7 @@
         vm.errorMessage = "";
         vm.isBusy = true;
 
-        $http.get("/api/assets?type=Application")
+        $http.get("/api/assets?type=Server")
             .then(function (response) {
                 // Success
                 angular.copy(response.data, vm.assets);
@@ -34,26 +34,26 @@
                 vm.isBusy = false;
             });
 
-        //vm.addAsset = function () {
-        //    //vm.assets.push({ name: vm.newAsset.name, created: new Date() });a
+        vm.addAsset = function () {
+            //vm.assets.push({ name: vm.newAsset.name, created: new Date() });a
 
-        //    vm.isBusy = true;
-        //    vm.errorMessage = "";
+            vm.isBusy = true;
+            vm.errorMessage = "";
 
-        //    $http.post("/api/assets", vm.newAsset)
-        //        .then(function (response) {
-        //            // success
-        //            //vm.assets.push(response.data)
-        //            vm.assets.push("This is a test");
-        //            vm.newAsset = {};
-        //        }, function () {
-        //            // failure
-        //            vm.errorMessage = "Failed to save new asset"
-        //        })
-        //        .finally(function () {
-        //            vm.isBusy = false;
-        //        });
-        //};
+            $http.post("/api/assets", vm.newAsset)
+                .then(function (response) {
+                    // success
+                    //vm.assets.push(response.data)
+                    vm.assets.push("This is a test");
+                    vm.newAsset = {};
+                }, function () {
+                    // failure
+                    vm.errorMessage = "Failed to save new asset"
+                })
+                .finally(function () {
+                    vm.isBusy = false;
+                });
+        };
 
         vm.pageChangeHandler = function (num) {
             console.log('assets page changed to ' + num);
