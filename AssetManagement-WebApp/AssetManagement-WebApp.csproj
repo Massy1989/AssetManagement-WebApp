@@ -24,15 +24,9 @@
 
   <ItemGroup>
     <Content Include="wwwroot\css\paginationStyle.css" />
-    <Content Include="wwwroot\js\app-assets.js" />
     <Content Include="wwwroot\js\app-graphing.js" />
     <Content Include="wwwroot\js\app.js" />
-    <Content Include="wwwroot\js\applicationsController - Copy.js" />
     <Content Include="wwwroot\js\applicationsController.js" />
-    <Content Include="wwwroot\js\assetsController.js" />
-    <Content Include="wwwroot\js\serversController - Copy.js">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
     <Content Include="wwwroot\js\serversController.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
