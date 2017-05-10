@@ -16,5 +16,7 @@ namespace AssetManagementWebApp.ViewModels
         public string Name { get; set; }
         public string Description { get; set; }
         public AssetType AssetType { get; set; }
+        public string UserDisplayName { get; set; }
+
     }
 }

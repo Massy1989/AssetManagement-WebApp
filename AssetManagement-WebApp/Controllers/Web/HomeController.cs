@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using AssetManagementWebApp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AssetManagement_WebApp.Controllers
 {

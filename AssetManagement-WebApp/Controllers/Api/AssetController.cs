@@ -7,9 +7,11 @@ using AssetManagementWebApp.Models;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
 using AssetManagementWebApp.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AssetManagement_WebApp.Controllers
 {
+    [AllowAnonymous]
     [Route("/api/assets")]
     public class AssetController : Controller
     {

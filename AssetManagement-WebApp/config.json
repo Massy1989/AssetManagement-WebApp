@@ -5,9 +5,14 @@
   "ConnectionStrings": {
     "AssetContextConnection": "Server=Server-2016;Database=AssetManagementDB;Trusted_Connection=true;MultipleActiveResultSets=true;"
   },
-  "LdapConnection": {
-    "Server": "Server-2016",
-    "Username": "ldapread",
-    "Password":  "ldapread"
+  "Ldap": {
+    "url": "server-2016",
+    //"bindDn": "CN=LDAPREAD,CN=Domain Users,DC=assetmanagement,DC=example",
+    "bindDn": "ASSETMANAGEMENT\\ldapread",
+    "bindCredentials": "Yw9PXPYr6?e",
+    "searchBase": "DC=assetmanagement,DC=example",
+    "searchFilter": "(&(objectClass=user)(objectClass=person)(sAMAccountName={0}))",
+    //"adminCn": "CN=Domain Admins,CN=Users,DC=assetmanagement,DC=example"
+    "adminCn": "CN=Domain Admins,CN=Users,DC=assetmanagement,DC=example"
   }
 }

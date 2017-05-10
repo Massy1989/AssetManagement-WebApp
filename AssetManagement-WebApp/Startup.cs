@@ -11,6 +11,11 @@ using AssetManagementWebApp.Models;
 using Newtonsoft.Json.Serialization;
 using AutoMapper;
 using AssetManagementWebApp.ViewModels;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc.Internal;
+using System.Net;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AssetManagement_WebApp
 {
@@ -37,9 +42,18 @@ namespace AssetManagement_WebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton(_config);
+            // default access requires admin access
+            var isAdminUserPolicy = new AuthorizationPolicyBuilder().RequireRole("Domain Admins").Build();
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new ApplyPolicyOrAuthorizeFilter(isAdminUserPolicy));
+            });
 
-            if (_env.IsEnvironment("Development") || _env.IsEnvironment("Testing"))
+            services.AddSingleton(_config);
+            services.Configure<LdapConfig>(_config.GetSection("Ldap"));
+            services.AddScoped<IAuthenticationService, LdapAuthenticationService>();
+
+           if (_env.IsEnvironment("Development") || _env.IsEnvironment("Testing"))
             {
                 //services.AddScoped<IMailService, DebugMailService>();
             }
@@ -65,6 +79,24 @@ namespace AssetManagement_WebApp
             //loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             //loggerFactory.AddDebug();
 
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                Events = new CookieAuthenticationEvents
+                {
+                    // You will need this only if you use Ajax calls with a library not compatible with IsAjaxRequest
+                    // More info here: https://github.com/aspnet/Security/issues/1056
+                    OnRedirectToAccessDenied = context =>
+                    {
+                        context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                        return TaskCache.CompletedTask;
+                    }
+                },
+                AuthenticationScheme = "app",
+                LoginPath = new PathString("/Authentication/Login"),
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true
+            });
+
             Mapper.Initialize(config =>
             {
                 config.CreateMap<AssetViewModel, Asset>().ReverseMap();
@@ -84,6 +116,7 @@ namespace AssetManagement_WebApp
             }
 
             app.UseStaticFiles();
+            app.UseMvc();
 
             //app.UseMvc(routes =>
             //{
@@ -92,7 +125,19 @@ namespace AssetManagement_WebApp
             //        template: "{controller=Home}/{action=Index}/{id?}");
             //});
 
-            app.UseMvc();
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //        name: "login",
+            //        template: "authentication/login",
+            //        defaults: new { controller = "Account", action = "Login" }
+            //    );
+            //    routes.MapRoute(
+            //        name: "logout",
+            //        template: "authentication/logout",
+            //        defaults: new { controller = "Account", action = "Logout" }
+            //    );
+            //});
         }
     }
 }
