@@ -22,6 +22,12 @@ namespace AssetManagement_WebApp.Controllers
             return View();
         }
 
+        [Route("Applications/Add")]
+        public IActionResult Add()
+        {
+            return View();
+        }
+
         public IActionResult Applications()
         {
             var applications = _repository.GetAllAssets().Where(t => t.AssetType.Id == AssetTypeEnum.Application);

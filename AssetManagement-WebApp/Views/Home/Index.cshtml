@@ -22,23 +22,27 @@
         <div ng-controller="dataController" class="my-controller">
             @*<h1>Asset Search</h1>*@
             @*<small>this is in "MyController"</small>*@
-
-            <div class="row">
-                @*<div class="col-xs-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4>Search</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        @*<div class="col-xs-4">
                     <h3>Page: {{ currentPage }}</h3>
                 </div>*@
-                <div class="col-lg-8">
-                    <label for="search">Search:</label>
-                    <input ng-model="assetFilter" id="search" class="form-control" placeholder="Search for an asset...">
-                </div>
-                @*<div class="col-xs-4">
+                        <div class="col-lg-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-search fa"></i></span>
+                                <input ng-model="assetFilter" id="search" class="form-control" placeholder="Search for an asset...">
+                            </div>
+                        </div>
+                        @*<div class="col-xs-4">
                     <label for="search">items per page:</label>
                     <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
                 </div>*@
-            </div>
-            <br>
-            <div class="panel panel-default">
-                <div class="panel-body">
+                    </div>
+                    <br />
                     <!--<li dir-paginate="meal in meals | filter:assetFilter | itemsPerPage: pageSize" current-page="currentPage">{{ meal }}</li>-->
                     <div ng-show="isBusy" class="text-center"><i class="fa fa-circle-o-notch fa-spin fa-3x"></i><p>Loading...</p></div>
                     <!--<ul>
@@ -57,7 +61,7 @@
                         </thead>
                         <tbody>
                             <tr dir-paginate="asset in assets | filter:assetFilter | itemsPerPage: pageSize" current-page="currentPage">
-                                <td><i class="fa fa-database fa-2x"></i></td>
+                                <td><i class="fa {{ asset.assetType.faGlyph }} fa-2x"></i></td>
                                 <td>{{ asset.name }}</td>
                                 <td>{{ asset.description }}</td>
                                 <td>{{ asset.assetType.description }}</td>
@@ -92,9 +96,9 @@
         </div>
     </div>
     <div class="col-lg-5">
-        <div class="panel panel-">
+        <div class="panel panel-warning">
             <div class="panel-heading">
-                <h4>Asset Statistics</h4>
+                <h4>Statistics</h4>
             </div>
             <div class="panel-body" ng-controller="graphingController">
                 <flot width="100%" height="300px" dataset="pieDataset" options="pieOptions"></flot>

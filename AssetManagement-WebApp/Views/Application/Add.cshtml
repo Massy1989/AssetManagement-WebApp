@@ -19,10 +19,31 @@
 }*@
 <div class="row" ng-app="app" ng-cloak>
     <div class="col-lg-12" ng-controller="dataController">
-        <div class="panel panel-default">
+        @*<div class="panel panel-default">
             <div class="panel-body">
                 <p>This is where the add form will appear.</p>
             </div>
-        </div>
+        </div>*@
+        <form class="form-horizontal">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4>Add Application</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="testInput" class="col-sm-1 control-label">Test Input Label</label>
+                        <div class="col-sm-11">
+                            <input type="text" class="form-control" id="testInput" aria-describedby="helpBock" placeholder="Enter text" />
+                            <span id="helpBlock" class="help-block">We'll never share your email with anyone else.</span>
+                        </div>
+                        <label for="testInput" class="col-sm-2 control-label">Test Input Label</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="testInput" aria-describedby="helpBock" placeholder="Enter text" />
+                            <span id="helpBlock" class="help-block">We'll never share your email with anyone else.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 </div>

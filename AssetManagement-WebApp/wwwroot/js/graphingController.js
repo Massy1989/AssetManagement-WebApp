@@ -44,7 +44,7 @@
                     vm.pieDataset[key] = {
                         label: resultObj.assetType.description,
                         data: resultObj.quantity
-                    }
+                    };
                 });
             }, function (error) {
                 // Failure
