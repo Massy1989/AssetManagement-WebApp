@@ -4,5 +4,10 @@
   },
   "ConnectionStrings": {
     "AssetContextConnection": "Server=Server-2016;Database=AssetManagementDB;Trusted_Connection=true;MultipleActiveResultSets=true;"
+  },
+  "LdapConnection": {
+    "Server": "Server-2016",
+    "Username": "ldapread",
+    "Password":  "ldapread"
   }
 }
