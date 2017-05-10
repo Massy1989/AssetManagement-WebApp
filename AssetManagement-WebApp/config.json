@@ -3,7 +3,7 @@
     "ToAddress": "ryan.masilionis@gmail.com"
   },
   "ConnectionStrings": {
-    "AssetContextConnection": "Server=Server-2016;Database=AssetManagementDB;Trusted_Connection=true;MultipleActiveResultSets=true;"
+    "AssetContextConnection": "Server=SERVER-2016;Database=AssetManagementDB;User Id=AssetManagementUser;Password=JM?qhx48Bj;MultipleActiveResultSets=true;"
   },
   "Ldap": {
     "url": "server-2016",
