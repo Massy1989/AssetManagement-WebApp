@@ -19,15 +19,26 @@ namespace AssetManagement_WebApp.Controllers
             _authService = authService;
         }
 
-        //[HttpPost]
         [AllowAnonymous]
-        [Route("Login")]
+        [HttpGet("Login")]
+        public IActionResult Index(bool isLoginFailed = false)
+        {
+            var name = User.Identity.Name;
+            return View(isLoginFailed);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
+                    if(string.IsNullOrEmpty(model.Username) || string.IsNullOrEmpty(model.Password))
+                    {
+                        throw new ArgumentException();
+                    }
                     var user = _authService.Login(model.Username, model.Password);
                     if (null != user)
                     {
@@ -47,14 +58,15 @@ namespace AssetManagement_WebApp.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ModelState.AddModelError(string.Empty, ex.Message);
+                    return Redirect("/Authentication/Login?isLoginFailed=true");
+                    //ModelState.AddModelError(string.Empty, ex.Message);
                 }
             }
             return View(model);
         }
 
         [Authorize(Roles = "Domain Admins")]
-        [Route("Logout")]
+        [HttpGet("Logout")]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.Authentication.SignOutAsync("app");

@@ -1,7 +1,59 @@
-﻿@{
+﻿@*bool is loginFailed*@
+@model bool
+@{
     ViewData["Title"] = "Account";
 }
-<h2>@ViewData["Title"].</h2>
-<h3>@ViewData["Message"]</h3>
+@*<h2>Please Login</h2>*@
+@*<h3>@ViewData["Message"]</h3>*@
 
-<p>Use this area to provide additional information.</p>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>Please Login</h4>
+            </div>
+            <div class="panel-body">
+                <form action="" method="post" class="form-horizontal">
+                    @if(Model)
+                    {
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="alert alert-danger">
+                                    <strong>Invalid Login.</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="username" class="col-sm-3 control-label">Username</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="username" name="username" placeholder="Username" />
+                                @*<span id="helpBlock" class="help-block">We'll never share your email with anyone else.</span>*@
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="password" class="col-sm-3 control-label">Password</label>
+                            <div class="col-sm-8">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Password" />
+                                @*<span id="helpBlock" class="help-block">We'll never share your email with anyone else.</span>*@
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-3">
+                                <input class="btn btn-sm btn-success" type="submit" value="Submit" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
