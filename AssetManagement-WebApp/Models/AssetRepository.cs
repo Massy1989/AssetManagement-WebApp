@@ -114,11 +114,6 @@ namespace AssetManagementWebApp.Models
                 .FirstOrDefault();
         }
 
-        public void AddAsset(Asset asset)
-        {
-            _context.Add(asset);
-        }
-
         public object GetAssetsByUsername(string name)
         {
             return _context.Assets
@@ -129,6 +124,13 @@ namespace AssetManagementWebApp.Models
         public async Task<bool> SaveChangesAsync()
         {
             return (await _context.SaveChangesAsync()) > 0;
+        }
+
+        public int AddAsset(Asset asset)
+        {
+            _context.Assets.Add(asset);
+            _context.Entry(asset.AssetType).State = EntityState.Detached;
+            return _context.SaveChanges();
         }
     }
 }

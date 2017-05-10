@@ -16,16 +16,33 @@ namespace AssetManagement_WebApp.Controllers
             _repository = repository;
         }
 
-        [Route("Applications")]
+        [HttpGet("Applications")]
         public IActionResult Index()
         {
             return View();
         }
 
-        [Route("Applications/Add")]
+        [HttpGet("Applications/Add")]
         public IActionResult Add()
         {
             return View();
+        }
+
+        [HttpPost("Applications/Add")]
+        public IActionResult Add(Asset asset)
+        {
+            var assetType = new AssetType(AssetTypeEnum.Application);
+            asset.AssetType = assetType;
+
+            var recordsInserted = _repository.AddAsset(asset);
+            if (recordsInserted > 0)
+            {
+                return View("Index");
+            }
+            else
+            {
+                throw new Exception();
+            }
         }
 
         public IActionResult Applications()

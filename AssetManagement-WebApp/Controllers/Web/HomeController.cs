@@ -14,22 +14,32 @@ namespace AssetManagement_WebApp.Controllers
         private IConfigurationRoot _config;
         private IAssetRepository _repository;
 
-        //private AssetContext _context;
-        public HomeController(IConfigurationRoot config, IAssetRepository repository) //AssetContext context)
+        public HomeController(IConfigurationRoot config, IAssetRepository repository)
         {
             _config = config;
-            //_context = context;
             _repository = repository;
         }
 
-        [Route("")]
-        //[Route("Home/Index")]
+        [HttpGet("")]
         public IActionResult Index()
         {
-            //var data = _context.Assets.ToList();
             var data = _repository.GetAllAssets();
             return View(data);
         }
+
+        //[HttpPost("")]
+        //public IActionResult Index(Asset asset)
+        //{
+        //    var recordsInserted = _repository.AddAsset(asset);
+        //    if(recordsInserted > 0)
+        //    {
+        //        return View("Index");
+        //    }
+        //    else
+        //    {
+        //        throw new Exception();
+        //    }
+        //}
 
         public IActionResult Error()
         {

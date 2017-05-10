@@ -11,7 +11,7 @@ namespace AssetManagementWebApp.Models
 
         Asset GetAssetByName(string assetName, string username);
 
-        void AddAsset(Asset asset);
+        int AddAsset(Asset asset);
 
         Task<bool> SaveChangesAsync();
         object GetAssetsByUsername(string name);
