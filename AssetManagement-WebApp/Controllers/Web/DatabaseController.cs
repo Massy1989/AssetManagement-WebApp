@@ -67,5 +67,23 @@ namespace AssetManagement_WebApp.Controllers
                 throw new Exception();
             }
         }
+
+        [HttpDelete("Databases/Delete")]
+        public IActionResult Delete(int id)
+        {
+            var asset = new Asset();
+            asset.Id = id;
+
+            var recordsUpdated = _repository.DeleteAsset(asset);
+            if (recordsUpdated > 0)
+            {
+                return Ok();
+                //return RedirectToAction("Index");
+            }
+            else
+            {
+                throw new Exception();
+            }
+        }
     }
 }

@@ -147,5 +147,11 @@ namespace AssetManagementWebApp.Models
             _context.Entry(asset.AssetType).State = EntityState.Detached;
             return _context.SaveChanges();
         }
+
+        public int DeleteAsset(Asset asset)
+        {
+            _context.Assets.Remove(asset);
+            return _context.SaveChanges();
+        }
     }
 }

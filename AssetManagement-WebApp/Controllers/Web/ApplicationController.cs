@@ -72,11 +72,29 @@ namespace AssetManagement_WebApp.Controllers
             }
         }
 
-        public IActionResult Applications()
+        [HttpDelete("Applications/Delete")]
+        public IActionResult Delete(int id)
         {
-            var applications = _repository.GetAllAssets().Where(t => t.AssetType.Id == AssetTypeEnum.Application);
+            var asset = new Asset();
+            asset.Id = id;
 
-            return View(applications);
+            var recordsUpdated = _repository.DeleteAsset(asset);
+            if (recordsUpdated > 0)
+            {
+                return Ok();
+                //return RedirectToAction("Index");
+            }
+            else
+            {
+                throw new Exception();
+            }
         }
+
+        //public IActionResult Applications()
+        //{
+        //    var applications = _repository.GetAllAssets().Where(t => t.AssetType.Id == AssetTypeEnum.Application);
+
+        //    return View(applications);
+        //}
     }
 }

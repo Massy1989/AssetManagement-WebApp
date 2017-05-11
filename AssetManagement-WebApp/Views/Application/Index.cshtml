@@ -13,6 +13,35 @@
     @*<script src="~/lib/Flot/jquery.flot.pie.js"></script>
     <script src="~/lib/Flot/jquery.flot.canvas.js"></script>*@
     <script src="~/lib/angular-flot/angular-flot.min.js"></script>
+
+    <script type="text/javascript">
+        var assetId = "";
+
+        $("#deleteModal").on("show.bs.modal", function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            assetId = button.data('assetid'); // Extract info from data-* attributes
+            var assetName = button.data('assetname');
+            var assetType = button.data('assettype');
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find(".modal-body").text("Are you sure you wish to delete the " + assetType + " named '" + assetName + "'?");
+        });
+
+        $(document).ready(function () {
+            $(function () {
+                $('#deleteAssetButton').click(function () {
+                    $.ajax({
+                        url: '/Applications/Delete' + '?' + $.param({ "Id": assetId }),
+                        type: 'DELETE',
+                        success: function (result) {
+                            location.reload();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 }
 @*@section Styles {
     
@@ -56,8 +85,12 @@
                                 <td>{{ asset.description }}</td>
                                 @*<td>{{ asset.assetType.description }}</td>*@
                                 @*<td>{{ asset.created | date:'MM-dd-yyyy'}}</td>*@
-                                <td><a href="@ViewData["Title"]/Edit?assetId={{asset.id}}" class="btn btn-sm btn-primary">Edit</a></td>
-                                <td><a href="@ViewData["Title"]/Delete?assetId={{asset.id}}" class="btn btn-sm btn-danger">Delete</a></td>
+                                <td>
+                                    <a href="@ViewData["Title"]/Edit?assetId={{asset.id}}" class="btn btn-primary">Edit</a>
+                                    @*<a href="@ViewData["Title"]/Delete?assetId={{asset.id}}"></a>*@
+                                    <button class="btn btn-danger pull-right" data-toggle="modal" data-target="#deleteModal" data-assetid="{{asset.id}}" data-assetname="{{asset.name}}" data-assettype="{{asset.assetType.description}}"><i class="fa fa-trash"></i></button>
+                                </td>
+                                @*<td><a href="@ViewData["Title"]/Delete?assetId={{asset.id}}" class="btn btn-sm btn-danger">Delete</a>*@
                             </tr>
                         </tbody>
                     </table>
@@ -73,3 +106,23 @@
         </div>
     </div>
 </div>
+
+<!--Delete Modal-->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content panel-danger">
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Are you sure?</h4>
+            </div>
+            <div class="modal-body">
+                <p></p>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">No, get me out of here!</button>
+                <button type="button" class="btn btn-danger" id="deleteAssetButton">Yes, delete it!</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

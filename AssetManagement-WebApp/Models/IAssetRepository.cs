@@ -17,6 +17,8 @@ namespace AssetManagementWebApp.Models
 
         int UpdateAsset(Asset asset);
 
+        int DeleteAsset(Asset asset);
+
         Task<bool> SaveChangesAsync();
         //object GetAssetsByUsername(string name);
     }
