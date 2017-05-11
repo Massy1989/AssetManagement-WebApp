@@ -25,7 +25,13 @@
         $http.get("/api/assets?type=Workstation")
             .then(function (response) {
                 // Success
-                angular.copy(response.data, vm.assets);
+                angular.copy(response.data, vm.assets); 
+                angular.forEach(vm.assets, function (asset) {
+                    if (asset.assetType.description == "Workstation") {
+                        asset.assetType.faGlyph = "fa-desktop";
+                    }
+                    //console.log(asset.assetType)
+                });
             }, function (error) {
                 // Failure
                 vm.errorMessage = "Failed to load data: " + error;

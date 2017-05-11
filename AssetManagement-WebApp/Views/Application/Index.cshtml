@@ -56,7 +56,8 @@
                                 <td>{{ asset.description }}</td>
                                 @*<td>{{ asset.assetType.description }}</td>*@
                                 @*<td>{{ asset.created | date:'MM-dd-yyyy'}}</td>*@
-                                <td><a href="#" class="btn btn-sm btn-primary">Edit</a></td>
+                                <td><a href="@ViewData["Title"]/Edit?assetId={{asset.id}}" class="btn btn-sm btn-primary">Edit</a></td>
+                                <td><a href="@ViewData["Title"]/Delete?assetId={{asset.id}}" class="btn btn-sm btn-danger">Delete</a></td>
                             </tr>
                         </tbody>
                     </table>

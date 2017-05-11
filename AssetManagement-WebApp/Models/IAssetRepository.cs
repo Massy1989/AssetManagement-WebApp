@@ -9,11 +9,15 @@ namespace AssetManagementWebApp.Models
 
         IEnumerable<AssetCount> GetAllAssetCounts();
 
-        Asset GetAssetByName(string assetName, string username);
+        Asset GetAssetByName(string assetName);
+
+        Asset GetAssetById(int assetId);
 
         int AddAsset(Asset asset);
 
+        int UpdateAsset(Asset asset);
+
         Task<bool> SaveChangesAsync();
-        object GetAssetsByUsername(string name);
+        //object GetAssetsByUsername(string name);
     }
 }

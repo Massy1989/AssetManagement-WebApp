@@ -1,0 +1,38 @@
+﻿@model IEnumerable<AssetManagementWebApp.Models.Asset>
+@{
+    ViewData["Title"] = "Databases";
+    ViewBag.CurrentPage = "Database";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <form action="" class="form-horizontal" method="post">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4>Add Database</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="databaseName" class="col-sm-1 control-label">Name:</label>
+                        <div class="col-sm-11">
+                            <input type="text" class="form-control" id="databaseName" name="name" placeholder="Database Name" />
+                            @*<span id="helpBlock" class="help-block"></span>*@
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="databaseDescription" class="col-sm-1 control-label">Description:</label>
+                        <div class="col-sm-11">
+                            <textarea rows="8" class="form-control" id="databaseDescription" name="description" placeholder="Description"></textarea>
+                            @*<span id="helpBlock" class="help-block"></span>*@
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-11">
+                            <input class="btn btn-sm btn-success" type="submit" value="Add Database" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

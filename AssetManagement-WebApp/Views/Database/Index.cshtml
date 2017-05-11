@@ -1,8 +1,75 @@
-﻿@{
+﻿@model IEnumerable<AssetManagementWebApp.Models.Asset>
+@{
     ViewData["Title"] = "Databases";
     ViewBag.CurrentPage = "Database";
 }
-<h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
-
-<p>Use this area to provide additional information.</p>
+@section Scripts {
+    <script src="~/lib/angular/angular.min.js"></script>
+    <script src="~/js/dirPagination.js"></script>
+    <script src="~/js/app.js"></script>
+    <script src="~/js/databasesController.js"></script>
+    <script src="~/js/graphingController.js"></script>
+    <script src="~/lib/Flot/jquery.flot.js"></script>
+    @*<script src="~/lib/Flot/jquery.flot.pie.js"></script>
+    <script src="~/lib/Flot/jquery.flot.canvas.js"></script>*@
+    <script src="~/lib/angular-flot/angular-flot.min.js"></script>
+}
+@*@section Styles {
+    
+}*@
+<div class="row" ng-app="app" ng-cloak>
+    <div ng-controller="dataController">
+        <div class="col-xs-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4>Search</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-search fa"></i></span>
+                                <input ng-model="assetFilter" id="search" class="form-control" placeholder="Search for a database...">
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <a asp-controller="Database" asp-action="Add" class="btn btn-sm btn-success pull-right"><i class="fa fa-plus-circle"></i> Add Database</a>
+                        </div>
+                    </div>
+                    <br />
+                    <div ng-show="isBusy" class="text-center"><i class="fa fa-circle-o-notch fa-spin fa-3x"></i><p>Loading...</p></div>
+                    <table class="table table-responsive table-striped">
+                        <!--<tr ng-repeat="asset in vm.assets">-->
+                        <thead>
+                            <tr>
+                                <th></th> <!--Glyph-->
+                                <th>Name</th>
+                                <th>Description</th>
+                                @*<th>Asset Type</th>*@
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr dir-paginate="asset in assets | filter:assetFilter | itemsPerPage: pageSize" current-page="currentPage">
+                                <td><i class="fa {{ asset.assetType.faGlyph }} fa-2x"></i></td>
+                                <td>{{ asset.name }}</td>
+                                <td>{{ asset.description }}</td>
+                                @*<td>{{ asset.assetType.description }}</td>*@
+                                @*<td>{{ asset.created | date:'MM-dd-yyyy'}}</td>*@
+                                <td><a href="@ViewData["Title"]/Edit?assetId={{asset.id}}" class="btn btn-sm btn-primary">Edit</a></td>
+                                <td><a href="@ViewData["Title"]/Delete?assetId={{asset.id}}" class="btn btn-sm btn-danger">Delete</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-controller="paginationController">
+        <div class="col-lg-12 pagination-controller">
+            <div class="text-center">
+                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="./tpl/dirPagination.tpl.html"></dir-pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>

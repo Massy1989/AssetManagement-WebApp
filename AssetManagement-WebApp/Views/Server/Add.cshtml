@@ -1,0 +1,38 @@
+﻿@model IEnumerable<AssetManagementWebApp.Models.Asset>
+@{
+    ViewData["Title"] = "Servers";
+    ViewBag.CurrentPage = "Server";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <form action="" class="form-horizontal" method="post">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4>Add Server</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="serverName" class="col-sm-1 control-label">Name:</label>
+                        <div class="col-sm-11">
+                            <input type="text" class="form-control" id="serverName" name="name" placeholder="Server Name" />
+                            @*<span id="helpBlock" class="help-block"></span>*@
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="serverDescription" class="col-sm-1 control-label">Description:</label>
+                        <div class="col-sm-11">
+                            <textarea rows="8" class="form-control" id="serverDescription" name="description" placeholder="Description"></textarea>
+                            @*<span id="helpBlock" class="help-block"></span>*@
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-11">
+                            <input class="btn btn-sm btn-success" type="submit" value="Add Server" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

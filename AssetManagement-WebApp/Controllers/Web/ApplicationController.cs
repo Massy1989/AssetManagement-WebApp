@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AssetManagementWebApp.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Net.Http;
+using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.Net.Http.Headers;
 
 namespace AssetManagement_WebApp.Controllers
 {
@@ -37,7 +40,31 @@ namespace AssetManagement_WebApp.Controllers
             var recordsInserted = _repository.AddAsset(asset);
             if (recordsInserted > 0)
             {
-                return View("Index");
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                throw new Exception();
+            }
+        }
+
+        [HttpGet("Applications/Edit")]
+        public IActionResult Edit(int assetId)
+        {
+            var asset = _repository.GetAssetById(assetId);
+            return View(asset);
+        }
+
+        [HttpPost("Applications/Edit")]
+        public IActionResult Edit(Asset asset)
+        {
+            var assetType = new AssetType(AssetTypeEnum.Application);
+            asset.AssetType = assetType;
+
+            var recordsUpdated = _repository.UpdateAsset(asset);
+            if (recordsUpdated > 0)
+            {
+                return RedirectToAction("Index");
             }
             else
             {

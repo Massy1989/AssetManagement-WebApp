@@ -26,6 +26,12 @@
             .then(function (response) {
                 // Success
                 angular.copy(response.data, vm.assets);
+                angular.forEach(vm.assets, function (asset) {
+                    if (asset.assetType.description == "Server") {
+                        asset.assetType.faGlyph = "fa-server";
+                    }
+                    //console.log(asset.assetType)
+                });
             }, function (error) {
                 // Failure
                 vm.errorMessage = "Failed to load data: " + error;

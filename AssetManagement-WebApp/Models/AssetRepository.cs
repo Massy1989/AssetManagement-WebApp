@@ -69,43 +69,42 @@ namespace AssetManagementWebApp.Models
 
         public IEnumerable<Asset> GetAllAssets()
         {
-            _logger.LogInformation("Gett All Assets from the Database");
-
-            var list = _context.Assets.Include(t => t.AssetType).ToList();
-            return _context.Assets.ToList();
+            _logger.LogInformation("Get All Assets from the Database");
+            var list = _context.Assets.Include(t => t.AssetType).OrderBy(o => o.AssetType.Description).ThenBy(o => o.Name).ToList();
+            return _context.Assets.OrderBy(o => o.AssetType.Description).ThenBy(o => o.Name).ToList();
         }
 
-        public IEnumerable<Asset> GetAllApplicationAssets()
-        {
-            var list = _context.Assets.Include(t => t.AssetType).Where(t => t.AssetType.Id == AssetTypeEnum.Application).ToList();
-            return _context.Assets.ToList();
-        }
+        //public IEnumerable<Asset> GetAllApplicationAssets()
+        //{
+        //    var list = _context.Assets.Include(t => t.AssetType).Where(t => t.AssetType.Id == AssetTypeEnum.Application).ToList();
+        //    return _context.Assets.ToList();
+        //}
 
-        public IEnumerable<Asset> GetAllComponentAssets()
-        {
-            var list = _context.Assets.Include(t => t.AssetType).Where(t => t.AssetType.Id == AssetTypeEnum.Component).ToList();
-            return _context.Assets.ToList();
-        }
+        //public IEnumerable<Asset> GetAllComponentAssets()
+        //{
+        //    var list = _context.Assets.Include(t => t.AssetType).Where(t => t.AssetType.Id == AssetTypeEnum.Component).ToList();
+        //    return _context.Assets.ToList();
+        //}
 
-        public IEnumerable<Asset> GetAllDatabaseAssets()
-        {
-            var list = _context.Assets.Include(t => t.AssetType).Where(t => t.AssetType.Id == AssetTypeEnum.Database).ToList();
-            return _context.Assets.ToList();
-        }
+        //public IEnumerable<Asset> GetAllDatabaseAssets()
+        //{
+        //    var list = _context.Assets.Include(t => t.AssetType).Where(t => t.AssetType.Id == AssetTypeEnum.Database).ToList();
+        //    return _context.Assets.ToList();
+        //}
 
-        public IEnumerable<Asset> GetAllServerAssets()
-        {
-            var list = _context.Assets.Include(t => t.AssetType).Where(t => t.AssetType.Id == AssetTypeEnum.Server).ToList();
-            return _context.Assets.ToList();
-        }
+        //public IEnumerable<Asset> GetAllServerAssets()
+        //{
+        //    var list = _context.Assets.Include(t => t.AssetType).Where(t => t.AssetType.Id == AssetTypeEnum.Server).ToList();
+        //    return _context.Assets.ToList();
+        //}
 
-        public IEnumerable<Asset> GetAllWorkstationAssets()
-        {
-            var list = _context.Assets.Include(t => t.AssetType).Where(t => t.AssetType.Id == AssetTypeEnum.Workstation).ToList();
-            return _context.Assets.ToList();
-        }
+        //public IEnumerable<Asset> GetAllWorkstationAssets()
+        //{
+        //    var list = _context.Assets.Include(t => t.AssetType).Where(t => t.AssetType.Id == AssetTypeEnum.Workstation).ToList();
+        //    return _context.Assets.ToList();
+        //}
 
-        public Asset GetAssetByName(string assetName, string username)
+        public Asset GetAssetByName(string assetName)
         {
             return _context.Assets
                 .Include(t => t.AssetType)
@@ -114,12 +113,21 @@ namespace AssetManagementWebApp.Models
                 .FirstOrDefault();
         }
 
-        public object GetAssetsByUsername(string name)
+        public Asset GetAssetById(int assetId)
         {
             return _context.Assets
-                //.Where(t => t.UserName == name)
-                .ToList();
+                .Include(t => t.AssetType)
+                //.Where(t => t.Name == tripName && t.UserName == username)
+                .Where(t => t.Id == assetId)
+                .FirstOrDefault();
         }
+
+        //public object GetAssetsByUsername(string name)
+        //{
+        //    return _context.Assets
+        //        //.Where(t => t.UserName == name)
+        //        .ToList();
+        //}
 
         public async Task<bool> SaveChangesAsync()
         {
@@ -129,6 +137,13 @@ namespace AssetManagementWebApp.Models
         public int AddAsset(Asset asset)
         {
             _context.Assets.Add(asset);
+            _context.Entry(asset.AssetType).State = EntityState.Detached;
+            return _context.SaveChanges();
+        }
+
+        public int UpdateAsset(Asset asset)
+        {
+            _context.Assets.Update(asset);
             _context.Entry(asset.AssetType).State = EntityState.Detached;
             return _context.SaveChanges();
         }
